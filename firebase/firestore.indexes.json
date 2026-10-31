@@ -65,13 +65,19 @@
       "indexes": []
     },
     {
-      "collectionGroup": "authCodes",
+      "collectionGroup": "rateLimits",
       "fieldPath": "expiresAt",
       "ttl": true,
       "indexes": []
     },
     {
-      "collectionGroup": "rateLimits",
+      "collectionGroup": "waIntents",
+      "fieldPath": "expiresAt",
+      "ttl": true,
+      "indexes": []
+    },
+    {
+      "collectionGroup": "loginLinks",
       "fieldPath": "expiresAt",
       "ttl": true,
       "indexes": []
