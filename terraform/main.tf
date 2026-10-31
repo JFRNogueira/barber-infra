@@ -13,6 +13,10 @@ provider "google" {
   project = var.project_id
   region  = var.region
   zone    = var.zone
+
+  # Orçamento e App Check exigem um projeto de cota com credenciais de usuário.
+  user_project_override = true
+  billing_project       = var.project_id
 }
 
 data "google_project" "this" {}

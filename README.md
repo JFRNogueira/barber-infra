@@ -40,9 +40,9 @@ Projeto GCP/Firebase: `barber-app-259c1`.
 - [ ] Número do bot conectado na Evolution (teste: número pessoal do Johannes, com `BOT_ALLOWLIST`)
 - [ ] Número dedicado do bot (antes do piloto)
 - [x] Bucket de fotos e segredo `SMTP_URL` (como `unset`)
-- [ ] `terraform apply` do `ops.tf` (alertas, backup do Firestore, orçamento, App Check)
-- [ ] Homologação (`scripts/create-staging.sh`)
-- [ ] `SMTP_URL` real para os e-mails
+- [x] `terraform apply` do `ops.tf` (alertas, backup do Firestore, orçamento, App Check). Para aplicar mudanças: `terraform plan -out=x.tfplan` e `terraform apply x.tfplan`
+- [x] Homologação (`scripts/create-staging.sh`): https://barber-home-staging.web.app
+- [ ] `SMTP_URL` real para os e-mails (Resend; ver barber-knowhow/04-arquitetura.md)
 - [ ] Mercado Pago configurado
 - [ ] Revisar o custo do IP público na primeira fatura
 

@@ -12,7 +12,7 @@ STAGING=${1:-barber-home-staging}
 BILLING=${BILLING:-011041-BEB844-8228CB}
 DIR=$(cd "$(dirname "$0")/.." && pwd)
 
-gcloud projects describe "$STAGING" >/dev/null 2>&1 || gcloud projects create "$STAGING" --name="Barber Home (homologacao)"
+gcloud projects describe "$STAGING" >/dev/null 2>&1 || gcloud projects create "$STAGING" --name="Barber Home Homologacao"
 gcloud billing projects link "$STAGING" --billing-account="$BILLING" >/dev/null
 firebase projects:addfirebase "$STAGING" >/dev/null 2>&1 || true
 
@@ -34,7 +34,7 @@ curl -fsS -X POST -H "Authorization: Bearer $TOKEN" -H "x-goog-user-project: $ST
 PROJECT="$STAGING" bash "$DIR/scripts/bootstrap-secrets.sh"
 (cd "$DIR/firebase" && firebase deploy --only firestore --project "$STAGING")
 
-APP_ID=$(firebase apps:list WEB --project "$STAGING" 2>/dev/null | grep -oE '1:[0-9]+:web:[0-9a-f]+' | head -1)
+APP_ID=$(firebase apps:list WEB --project "$STAGING" 2>/dev/null | grep -oE "1:[0-9]+:web:[0-9a-f]+" | head -1 || true)
 [ -n "$APP_ID" ] || APP_ID=$(firebase apps:create WEB barber-front --project "$STAGING" | grep -oE '1:[0-9]+:web:[0-9a-f]+' | head -1)
 CONFIG=$(firebase apps:sdkconfig WEB "$APP_ID" --project "$STAGING")
 API_KEY=$(echo "$CONFIG" | sed -nE 's/.*"apiKey": "([^"]+)".*/\1/p')

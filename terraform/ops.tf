@@ -167,6 +167,6 @@ resource "google_firebase_app_check_recaptcha_enterprise_config" "web" {
 }
 
 output "recaptcha_site_key" {
-  value       = google_recaptcha_enterprise_key.web.name
+  value       = reverse(split("/", google_recaptcha_enterprise_key.web.name))[0]
   description = "Vai em VITE_RECAPTCHA_SITE_KEY no barber-front (.env.production)"
 }
