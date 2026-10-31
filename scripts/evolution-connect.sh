@@ -17,6 +17,13 @@ KEY=$(gcloud secrets versions access latest --secret=EVOLUTION_API_KEY --project
 
 api() { curl -fsS -H "apikey: $KEY" -H "Content-Type: application/json" "$@"; }
 
+if [ "${1:-}" = "reset" ]; then
+  api -X DELETE "$URL/instance/logout/$INSTANCE" >/dev/null 2>&1 || true
+  api -X DELETE "$URL/instance/delete/$INSTANCE" >/dev/null
+  echo "Instância $INSTANCE apagada."
+  exit 0
+fi
+
 if [ "${1:-}" = "status" ]; then
   api "$URL/instance/connectionState/$INSTANCE"
   echo
@@ -25,7 +32,7 @@ fi
 
 if ! api "$URL/instance/connectionState/$INSTANCE" >/dev/null 2>&1; then
   api -X POST "$URL/instance/create" \
-    -d "{\"instanceName\":\"$INSTANCE\",\"integration\":\"WHATSAPP-BAILEYS\",\"qrcode\":true,\"rejectCall\":false,\"groupsIgnore\":true,\"alwaysOnline\":false,\"readMessages\":false}" >/dev/null
+    -d "{\"instanceName\":\"$INSTANCE\",\"integration\":\"WHATSAPP-BAILEYS\",\"qrcode\":true,\"rejectCall\":false,\"groupsIgnore\":true,\"alwaysOnline\":false,\"readMessages\":false${NUMBER:+,\"number\":\"$NUMBER\"}}" >/dev/null
   echo "Instância $INSTANCE criada."
 fi
 
