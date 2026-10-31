@@ -170,3 +170,10 @@ output "recaptcha_site_key" {
   value       = reverse(split("/", google_recaptcha_enterprise_key.web.name))[0]
   description = "Vai em VITE_RECAPTCHA_SITE_KEY no barber-front (.env.production)"
 }
+
+# Dados de uso para análise (fase 3): a Function analyticsExport recarrega as tabelas todo dia.
+resource "google_bigquery_dataset" "analytics" {
+  dataset_id  = "barber_analytics"
+  location    = "southamerica-east1"
+  description = "Barber Home: agendamentos, barbeiros e clientes (anonimizados), recarregados diariamente"
+}

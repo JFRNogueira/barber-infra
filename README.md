@@ -10,7 +10,7 @@ Projeto GCP/Firebase: `barber-app-259c1`.
 | Conectar o WhatsApp | Evolution | `NUMBER=55… bash scripts/evolution-connect.sh` (código de pareamento + `qrcode.png`) |
 | Functions | `barber-back` | `firebase deploy --only functions` |
 | Hosting | `barber-front` | `firebase deploy --only hosting` |
-| Alertas, backup, orçamento, App Check | `terraform/ops.tf` | `terraform apply` (precisa de `terraform.tfvars` com `alert_email`) |
+| Alertas, backup, orçamento, App Check, BigQuery | `terraform/ops.tf` | `terraform apply` (precisa de `terraform.tfvars` com `alert_email`) |
 | Fotos dos barbeiros | bucket privado `barber-app-259c1-media` | criado; servido pela API |
 | Homologação | projeto `barber-home-staging` | `bash scripts/create-staging.sh` |
 
@@ -40,7 +40,7 @@ Projeto GCP/Firebase: `barber-app-259c1`.
 - [ ] Número do bot conectado na Evolution (teste: número pessoal do Johannes, com `BOT_ALLOWLIST`)
 - [ ] Número dedicado do bot (antes do piloto)
 - [x] Bucket de fotos e segredo `SMTP_URL` (como `unset`)
-- [x] `terraform apply` do `ops.tf` (alertas, backup do Firestore, orçamento, App Check). Para aplicar mudanças: `terraform plan -out=x.tfplan` e `terraform apply x.tfplan`
+- [x] `terraform apply` do `ops.tf` (alertas, backup do Firestore, orçamento, App Check, dataset `barber_analytics`). Se o Terraform der `invalid_rapt`, use `export GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token)`. Para aplicar mudanças: `terraform plan -out=x.tfplan` e `terraform apply x.tfplan`
 - [x] Homologação (`scripts/create-staging.sh`): https://barber-home-staging.web.app
 - [ ] `SMTP_URL` real para os e-mails (Resend; ver barber-knowhow/04-arquitetura.md)
 - [ ] Mercado Pago configurado

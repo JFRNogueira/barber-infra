@@ -31,6 +31,9 @@ create MP_WEBHOOK_SECRET unset
 
 # E-mail (cópia dos avisos para quem tem e-mail na conta): smtps://usuario:senha@servidor:465.
 create SMTP_URL unset
+# API oficial do WhatsApp (Meta): "unset" enquanto a Evolution for o canal (WHATSAPP_PROVIDER vazio).
+create WHATSAPP_CLOUD_TOKEN unset
+create WHATSAPP_APP_SECRET unset
 
 # Chave da Geocoding API, restrita a esse serviço (uso só no servidor).
 if ! gcloud secrets describe GEOCODING_API_KEY --project "$PROJECT" >/dev/null 2>&1; then
