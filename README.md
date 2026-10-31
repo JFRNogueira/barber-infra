@@ -10,6 +10,9 @@ Projeto GCP/Firebase: `barber-app-259c1`.
 | Conectar o WhatsApp | Evolution | `NUMBER=55… bash scripts/evolution-connect.sh` (código de pareamento + `qrcode.png`) |
 | Functions | `barber-back` | `firebase deploy --only functions` |
 | Hosting | `barber-front` | `firebase deploy --only hosting` |
+| Alertas, backup, orçamento, App Check | `terraform/ops.tf` | `terraform apply` (precisa de `terraform.tfvars` com `alert_email`) |
+| Fotos dos barbeiros | bucket privado `barber-app-259c1-media` | criado; servido pela API |
+| Homologação | projeto `barber-home-staging` | `bash scripts/create-staging.sh` |
 
 ## Ordem para colocar no ar
 
@@ -36,6 +39,10 @@ Projeto GCP/Firebase: `barber-app-259c1`.
 - [x] Functions publicadas; documentação da API em https://barber-app-259c1.web.app/api/docs
 - [ ] Número do bot conectado na Evolution (teste: número pessoal do Johannes, com `BOT_ALLOWLIST`)
 - [ ] Número dedicado do bot (antes do piloto)
+- [x] Bucket de fotos e segredo `SMTP_URL` (como `unset`)
+- [ ] `terraform apply` do `ops.tf` (alertas, backup do Firestore, orçamento, App Check)
+- [ ] Homologação (`scripts/create-staging.sh`)
+- [ ] `SMTP_URL` real para os e-mails
 - [ ] Mercado Pago configurado
 - [ ] Revisar o custo do IP público na primeira fatura
 

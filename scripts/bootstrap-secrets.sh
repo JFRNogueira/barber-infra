@@ -29,6 +29,9 @@ create MP_ACCESS_TOKEN unset
 create MP_CLIENT_SECRET unset
 create MP_WEBHOOK_SECRET unset
 
+# E-mail (cópia dos avisos para quem tem e-mail na conta): smtps://usuario:senha@servidor:465.
+create SMTP_URL unset
+
 # Chave da Geocoding API, restrita a esse serviço (uso só no servidor).
 if ! gcloud secrets describe GEOCODING_API_KEY --project "$PROJECT" >/dev/null 2>&1; then
   KEY_NAME=$(gcloud services api-keys create \

@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "barber-app-259c1"
+    "default": "barber-app-259c1",
+    "staging": "barber-home-staging"
   }
 }
