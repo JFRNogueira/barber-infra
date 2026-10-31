@@ -24,7 +24,7 @@ TOKEN=$(curl -fsS -H "Metadata-Flavor: Google" "$MD/instance/service-accounts/de
 secret() {
   curl -fsS -H "Authorization: Bearer $TOKEN" \
     "https://secretmanager.googleapis.com/v1/projects/$PROJECT/secrets/$1/versions/latest:access" |
-    tr -d '\n ' | sed -E 's/.*"data":"([^"]+)".*/\1/' | base64 -d
+    tr -d '\n ' | sed -E 's/.*"data":"([^"]+)".*/\1/' | base64 -d | tr -d '\r\n'
 }
 
 DOMAIN=$(attr evolution-domain)

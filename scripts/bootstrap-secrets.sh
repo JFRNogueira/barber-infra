@@ -14,7 +14,7 @@ create() {
   if gcloud secrets describe "$1" --project "$PROJECT" >/dev/null 2>&1; then
     echo "já existe: $1"
   else
-    printf '%s' "$2" | gcloud secrets create "$1" --data-file=- --replication-policy=automatic --project "$PROJECT" >/dev/null
+    printf '%s' "$2" | tr -d '\r\n' | gcloud secrets create "$1" --data-file=- --replication-policy=automatic --project "$PROJECT" >/dev/null
     echo "criado:    $1"
   fi
 }
