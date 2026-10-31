@@ -7,7 +7,7 @@ Projeto GCP/Firebase: `barber-app-259c1`.
 | Firestore (regras e índices) | `southamerica-east1` | `cd firebase && firebase deploy --only firestore` |
 | Segredos | Secret Manager | `bash scripts/bootstrap-secrets.sh` (uma vez) |
 | VM da Evolution | `us-central1-a`, e2-micro | `cd terraform && terraform apply` |
-| Conectar o WhatsApp | Evolution | `bash scripts/evolution-connect.sh` (gera `qrcode.png`) |
+| Conectar o WhatsApp | Evolution | `NUMBER=55… bash scripts/evolution-connect.sh` (código de pareamento + `qrcode.png`) |
 | Functions | `barber-back` | `firebase deploy --only functions` |
 | Hosting | `barber-front` | `firebase deploy --only hosting` |
 
@@ -16,7 +16,8 @@ Projeto GCP/Firebase: `barber-app-259c1`.
 1. `bash scripts/bootstrap-secrets.sh`
 2. `cd terraform && terraform init && terraform apply`
 3. Preencher `barber-back/.env` (`EVOLUTION_URL` = `terraform output -raw evolution_url`, `BOT_PHONE`, `ADMIN_PHONE`) e publicar as Functions.
-4. `bash scripts/evolution-connect.sh` e ler o QR Code com o número dedicado.
+4. `NUMBER=55… bash scripts/evolution-connect.sh` e digitar o código de pareamento no WhatsApp do número do bot
+   (Aparelhos conectados → Conectar com número de telefone). `status` mostra o estado; `reset` apaga a instância.
 5. Cadastrar barbeiros (`barber-back`, `npm run barber`).
 6. Mercado Pago: criar a aplicação marketplace, gravar `MP_ACCESS_TOKEN`, `MP_CLIENT_SECRET`, `MP_WEBHOOK_SECRET`
    no Secret Manager e `MP_CLIENT_ID` no `.env`; URL de retorno do OAuth:
@@ -29,13 +30,19 @@ Projeto GCP/Firebase: `barber-app-259c1`.
 - [x] Hosting do front publicado
 - [x] Firestore criado (`southamerica-east1`), regras e índices publicados
 - [x] APIs habilitadas (Functions, Cloud Build, Run, Scheduler, Secret Manager, Geocoding)
-- [ ] Segredos criados
-- [ ] VM da Evolution provisionada e número conectado
-- [ ] Functions publicadas
+- [x] Segredos criados
+- [x] Firebase Authentication inicializado (login do barbeiro)
+- [x] VM da Evolution provisionada (`https://35-226-150-145.sslip.io`)
+- [x] Functions publicadas; documentação da API em https://barber-app-259c1.web.app/api/docs
+- [ ] Número do bot conectado na Evolution (teste: número pessoal do Johannes, com `BOT_ALLOWLIST`)
+- [ ] Número dedicado do bot (antes do piloto)
 - [ ] Mercado Pago configurado
 - [ ] Revisar o custo do IP público na primeira fatura
 
 ## Observações
+
+- O `gcloud` deve usar a conta pessoal (Owner), não a service account do `serviceKey.json`:
+  `gcloud config set account <seu e-mail>`. Para o Terraform: `export GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token)`.
 
 - A VM tem snapshot diário do disco (sessão do WhatsApp).
 - O projeto precisa manter a evolução para a API oficial do WhatsApp no futuro.
