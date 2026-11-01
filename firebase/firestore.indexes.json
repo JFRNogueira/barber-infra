@@ -91,7 +91,7 @@
       "indexes": []
     },
     {
-      "collectionGroup": "loginLinks",
+      "collectionGroup": "accessLinks",
       "fieldPath": "expiresAt",
       "ttl": true,
       "indexes": []

@@ -22,6 +22,8 @@ create() {
 create APP_SECRET "$(openssl rand -base64 48 | tr -d '\n')"
 create EVOLUTION_API_KEY "$(openssl rand -hex 32)"
 create EVOLUTION_WEBHOOK_TOKEN "$(openssl rand -hex 32)"
+# Integrações que pedem links pessoais de acesso (POST /api/links/*, header x-api-key).
+create LINKS_API_KEY "$(openssl rand -hex 32)"
 
 # Mercado Pago: "unset" até a aplicação marketplace ser criada. O back-end trata
 # "unset" como não configurado (o Pix não é gerado e o Johannes é avisado).
