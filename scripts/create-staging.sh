@@ -16,7 +16,7 @@ gcloud projects describe "$STAGING" >/dev/null 2>&1 || gcloud projects create "$
 gcloud billing projects link "$STAGING" --billing-account="$BILLING" >/dev/null
 firebase projects:addfirebase "$STAGING" >/dev/null 2>&1 || true
 
-gcloud services enable firestore.googleapis.com cloudfunctions.googleapis.com cloudbuild.googleapis.com \
+gcloud services enable firestore.googleapis.com cloudfunctions.googleapis.com cloudbuild.googleapis.com geocoding-backend.googleapis.com \
   artifactregistry.googleapis.com run.googleapis.com cloudscheduler.googleapis.com secretmanager.googleapis.com \
   eventarc.googleapis.com iamcredentials.googleapis.com identitytoolkit.googleapis.com --project "$STAGING"
 
