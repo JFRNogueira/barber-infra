@@ -10,7 +10,7 @@ Projeto GCP/Firebase: `barber-app-259c1`.
 | Conectar o WhatsApp | Evolution | `NUMBER=55… bash scripts/evolution-connect.sh` (código de pareamento + `qrcode.png`) |
 | Functions | `barber-back` | `firebase deploy --only functions` |
 | Hosting | `barber-front` | `firebase deploy --only hosting` |
-| Alertas, backup, orçamento, App Check, BigQuery | `terraform/ops.tf` | `terraform apply` (precisa de `terraform.tfvars` com `alert_email`) |
+| Alertas, backup, orçamento, App Check, BigQuery (análise e eventos) | `terraform/ops.tf` | `terraform apply` (precisa de `terraform.tfvars` com `alert_email`) |
 | Fotos dos barbeiros | bucket privado `barber-app-259c1-media` | criado; servido pela API |
 | Homologação | projeto `barber-home-staging` | `bash scripts/create-staging.sh` |
 

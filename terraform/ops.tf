@@ -177,3 +177,28 @@ resource "google_bigquery_dataset" "analytics" {
   location    = "southamerica-east1"
   description = "Barber Home: agendamentos, barbeiros e clientes (anonimizados), recarregados diariamente"
 }
+
+# Eventos do back-end (01/11/2026): cada ação vira uma linha estruturada no Cloud Logging
+# (jsonPayload.eventType). O sink copia essas linhas para o BigQuery, sem banco de eventos.
+resource "google_bigquery_dataset" "events" {
+  dataset_id  = "barber_events"
+  location    = "southamerica-east1"
+  description = "Barber Home: eventos do back-end (cópia do Cloud Logging, tabelas particionadas por dia)"
+}
+
+resource "google_logging_project_sink" "events" {
+  name                   = "barber-events-to-bigquery"
+  destination            = "bigquery.googleapis.com/projects/${var.project_id}/datasets/${google_bigquery_dataset.events.dataset_id}"
+  filter                 = "jsonPayload.eventType:* AND jsonPayload.eventVersion:*"
+  unique_writer_identity = true
+
+  bigquery_options {
+    use_partitioned_tables = true
+  }
+}
+
+resource "google_bigquery_dataset_iam_member" "events_writer" {
+  dataset_id = google_bigquery_dataset.events.dataset_id
+  role       = "roles/bigquery.dataEditor"
+  member     = google_logging_project_sink.events.writer_identity
+}
